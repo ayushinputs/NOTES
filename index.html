@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#f6f6f6">
+<title>Notes</title>
+<link rel="icon" type="image/png" href="samsung_notes.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Icon sprite (stroke style defined in CSS) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01" stroke-width="3"/></symbol>
+<symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 010 12h-3"/></symbol>
+<symbol id="i-redo" viewBox="0 0 24 24"><path d="M15 14l5-5-5-5M20 9H10a6 6 0 000 12h3"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M5 7V5h14v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M9 7h11M9 12h11M9 17h11M4 7h.01M4 12h.01M4 17h.01" /></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4L16 5l3 3L8 19z"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 16l5-5 4 4 3-3 4 4"/></symbol>
+</defs></svg>
+
+<main id="app">
+  <!-- HOME SCREEN -->
+  <section id="home" class="screen">
+    <header class="home-head">
+      <div class="bar">
+        <button class="ib" aria-label="Menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+        <span class="sp"></span>
+        <button class="ib" id="searchBtn" aria-label="Search"><svg class="ic"><use href="#i-search"/></svg></button>
+        <button class="ib" aria-label="More options"><svg class="ic"><use href="#i-more"/></svg></button>
+      </div>
+      <h1 id="homeTitle">Notes</h1>
+      <p class="count" id="count"></p>
+    </header>
+    <div class="searchrow" id="searchRow"><input id="search" type="search" placeholder="Search notes" autocomplete="off"></div>
+    <nav class="chips"><span class="chip on">All</span><span class="chip">Shared</span><span class="chip">Favourites</span><span class="chip">Work</span></nav>
+    <div id="grid" class="grid"></div>
+    <button id="fab" class="fab" aria-label="Create note"><svg class="ic"><use href="#i-plus"/></svg></button>
+  </section>
+
+  <!-- NOTE EDITOR -->
+  <section id="editor" class="screen">
+    <div class="bar etop">
+      <button class="ib" id="backBtn" aria-label="Back"><svg class="ic"><use href="#i-back"/></svg></button>
+      <span class="sp"></span>
+      <button class="ib dim" aria-label="Undo"><svg class="ic"><use href="#i-undo"/></svg></button>
+      <button class="ib dim" aria-label="Redo"><svg class="ic"><use href="#i-redo"/></svg></button>
+      <button class="ib" id="saveBtn" aria-label="Save"><svg class="ic"><use href="#i-check"/></svg></button>
+      <button class="ib" aria-label="More options"><svg class="ic"><use href="#i-more"/></svg></button>
+    </div>
+    <input id="title" class="etitle" placeholder="Title" autocomplete="off" enterkeyhint="next">
+    <div id="date" class="edate"></div>
+    <div id="body" class="ebody" contenteditable="plaintext-only" spellcheck="false" autocapitalize="sentences"></div>
+    <div class="etools">
+      <button class="ib" aria-label="Text"><svg class="ic"><use href="#i-text"/></svg></button>
+      <button class="ib" aria-label="Checklist"><svg class="ic"><use href="#i-list"/></svg></button>
+      <button class="ib" aria-label="Pen"><svg class="ic"><use href="#i-pen"/></svg></button>
+      <button class="ib" aria-label="Image"><svg class="ic"><use href="#i-image"/></svg></button>
+    </div>
+  </section>
+  <!-- MAGICIAN PAGE (hidden: long-press the title or date line inside the "Grocery list" note) -->
+  <section id="magic" class="screen">
+    <div class="bar">
+      <button class="ib" id="magicBack" aria-label="Back"><svg class="ic"><use href="#i-back"/></svg></button>
+      <h2 class="mtitle">Magician page</h2>
+      <span class="sp"></span>
+      <button class="pill" id="btnFull">Full screen</button>
+    </div>
+    <div class="mscroll">
+      <div class="mstat"><div class="mlabel">Current state</div><div id="mState">-</div><div id="mHeard" class="mheard"></div></div>
+      <button class="primary" id="btnStart">Start performance</button>
+      <p class="mhint">Opens a new blank note (full screen if enabled below). Then: secret tap, wake word, spectator's choice.</p>
+      <h3>Tools</h3>
+      <div class="actions">
+        <button id="mMic">Allow microphone</button>
+        <button id="mTest">Test wake word</button>
+        <button id="mFlash">Show hotspot</button>
+        <button id="mReset">Reset trick</button>
+      </div>
+      <h3>Settings</h3>
+      <div id="mFields"></div>
+      <h3>Status</h3>
+      <pre id="mDebug"></pre>
+      <h3>Manual backup</h3>
+      <div class="manual"><input id="mManualText" placeholder="Type the prediction" autocomplete="off"><button id="mManualGo">Reveal</button></div>
+    </div>
+  </section>
+</main>
+
+<!-- Hidden settings sheet (opened by long-press on the "Notes" title or the editor date line) -->
+<div id="sheet" class="sheet" aria-hidden="true">
+  <div class="sheet-card">
+    <div class="sheet-head"><h2>Settings</h2><button id="sheetClose" class="done">Done</button></div>
+    <div id="fields"></div>
+    <h3>Status</h3>
+    <pre id="debug"></pre>
+    <div class="actions">
+      <button id="btnMic">Allow microphone</button>
+      <button id="btnRetry">Retry listening</button>
+      <button id="btnFlash">Flash hotspot</button>
+      <button id="btnReset">Reset trick</button>
+    </div>
+    <h3>Manual backup</h3>
+    <div class="manual"><input id="manualText" placeholder="Type the prediction" autocomplete="off"><button id="manualGo">Reveal</button></div>
+  </div>
+</div>
+<div id="hsPreview" class="hs-preview"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
